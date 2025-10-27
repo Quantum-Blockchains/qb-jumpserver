@@ -1,0 +1,78 @@
+/* ================================== */
+/* COLOR SYSTEM */
+/* ================================== */
+
+/* Base Unit and Variables - Exact Color Definitions */
+:root {
+    /* ================================== */
+    /* I. Background Colors */
+    /* ================================== */
+    --clr-bg-dark: hsl(156, 15%, 89%);
+    --clr-bg-surface: hsl(156, 28%, 94%);
+    --clr-bg-highlight: hsl(156, 100%, 99%);
+
+    /* ================================== */
+    /* II. Text Colors */
+    /* ================================== */
+    --clr-text-high: hsl(157, 60%, 3%);
+    --clr-text-muted: hsl(157, 10%, 27%);
+
+    /* ================================== */
+    /* III. Border Colors */
+    /* ================================== */
+    --clr-border: hsl(156, 6%, 49%);
+    --clr-border-muted: hsl(156, 8%, 61%);
+    --clr-highlight: hsl(156, 100%, 99%);
+
+    /* ================================== */
+    /* IV. Action Colors */
+    /* ================================== */
+    --clr-primary: hsl(168, 100%, 11%);
+    --clr-secondary: hsl(329, 41%, 30%);
+    --clr-primary-base: var(--clr-primary);
+    --clr-primary-light: hsl(168, 100%, 20%);
+    --clr-primary-dark: hsl(168, 100%, 8%);
+
+    /* ================================== */
+    /* V. Alert/Semantic Colors */
+    /* ================================== */
+    --clr-danger: hsl(9, 21%, 41%);
+    --clr-warning: hsl(52, 23%, 34%);
+    --clr-success: hsl(147, 19%, 36%);
+    --clr-info: hsl(217, 22%, 41%);
+}
+
+/* Manual Dark Theme Class - Lightness Flipping Rule */
+.dark-theme {
+    /* ================================== */
+    /* VI. Dark Mode: Lightness Flipping */
+    /* ================================== */
+    /* Rule: L_dark = 100 - L_light, keeping hue and saturation */
+    
+    /* Background Colors - Flipped lightness values */
+    --clr-bg-dark: hsl(156, 15%, 11%);      /* 100 - 89 = 11% */
+    --clr-bg-surface: hsl(156, 28%, 6%);    /* 100 - 94 = 6% */
+    --clr-bg-highlight: hsl(156, 100%, 1%); /* 100 - 99 = 1% */
+    
+    /* Text Colors - Flipped for contrast on dark backgrounds */
+    --clr-text-high: hsl(157, 60%, 97%);    /* 100 - 3 = 97% */
+    --clr-text-muted: hsl(157, 10%, 73%);   /* 100 - 27 = 73% */
+    
+    /* Border Colors - Flipped for dark theme visibility */
+    --clr-border: hsl(156, 6%, 51%);        /* 100 - 49 = 51% */
+    --clr-border-muted: hsl(156, 8%, 39%);  /* 100 - 61 = 39% */
+    --clr-highlight: hsl(156, 100%, 1%);    /* 100 - 99 = 1% */
+    
+    /* Action Colors - Adjusted for dark backgrounds */
+    --clr-primary: hsl(168, 60%, 45%);     /* Muted teal for dark theme */
+    --clr-secondary: hsl(329, 41%, 50%);
+    --clr-primary-base: var(--clr-primary);
+    --clr-primary-light: hsl(168, 60%, 55%);
+    --clr-primary-dark: hsl(168, 60%, 35%);
+    
+    /* Alert/Semantic Colors - Adjusted for dark backgrounds */
+    --clr-danger: hsl(9, 21%, 50%);
+    --clr-warning: hsl(52, 23%, 50%);
+    --clr-success: hsl(147, 19%, 50%);
+    --clr-info: hsl(217, 22%, 50%);
+}

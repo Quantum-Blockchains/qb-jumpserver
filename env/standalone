@@ -1,0 +1,32 @@
+# QB JUMP SERVER - STANDALONE DEPLOYMENT
+# Deploys: Jump Server only (requires existing Keycloak)
+# Steps: cp env/standalone .env → edit .env → docker compose -f docker-compose-cloud.yml up -d
+
+# REQUIRED SETTINGS
+JUMP_SERVER_HOST=localhost            # Update to your server IP/hostname
+JUMP_SERVER_PORT=8443
+JUMP_SERVER_PORT_HOST=8443
+JUMP_SERVER_TITLE=QB Jump Server
+ENVIRONMENT=development
+DOCKER_NETWORK=jump-server-network
+
+# SSL/TLS
+HTTPS_ENABLED=false                   # Set true for HTTPS
+SSL_CERT_PATH=./tls.crt
+SSL_KEY_PATH=./tls.key
+
+# OIDC AUTHENTICATION (⚠️ UPDATE ALL VALUES)
+OIDC_ENABLED=true
+OIDC_BASE_URL=http://your-keycloak-host:8080    # Your Keycloak URL
+OIDC_REALM=jump-server                          # Your Keycloak realm
+OIDC_CLIENT_ID=jump-server                      # Your Keycloak client
+OIDC_CLIENT_SECRET=CHANGE_THIS_TO_YOUR_CLIENT_SECRET  # Your client secret
+
+# SESSION MANAGEMENT
+SESSION_LIFETIME=0s                   # 0 = no absolute timeout
+SESSION_ROLLING_TIMEOUT=120m          # Session extends by 120 minutes on activity
+
+# MONITORING
+MONITORING_CLEANUP_INTERVAL=10s
+MONITORING_RETENTION=10m
+LOG_LEVEL=INFO

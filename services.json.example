@@ -1,0 +1,30 @@
+// Example configuration for Jump Server services
+{
+  "services": [
+    {
+      "id": "web-app",
+      "name": "Web Application",
+      "type": "http",
+      "url": "https://app.example.com:8080/",
+      "enabled": true,
+      "description": "Main web application service"
+    },
+    {
+      "id": "api-gateway",
+      "name": "API Gateway",
+      "type": "http",
+      "url": "http://api.internal:3000/api/v1/",
+      "enabled": true,
+      "description": "Internal API gateway service"
+    },
+    {
+      "id": "dev-server",
+      "name": "Development Server",
+      "type": "ssh",
+      "host": "dev.example.com",
+      "port": 22,
+      "enabled": true,
+      "description": "Development server SSH access"
+    }
+  ]
+}

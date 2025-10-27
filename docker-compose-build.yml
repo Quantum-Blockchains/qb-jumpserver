@@ -1,0 +1,31 @@
+services:
+  # Jump Server standalone deployment
+  jump-server:
+    build: .
+    container_name: qb-jumpserver
+    env_file:
+      - .env
+    ports:
+      - "${JUMP_SERVER_PORT_HOST:-8443}:8080"
+    volumes:
+      - qb-jumpserver-data:/app/data
+      - ./services.json:/app/services.json:ro
+      # SSL certificates (required when HTTPS_ENABLED=true)
+      - ${SSL_CERT_PATH}:/app/certs/tls.crt:ro
+      - ${SSL_KEY_PATH}:/app/certs/tls.key:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 2
+      start_period: 15s
+    restart: unless-stopped
+    networks:
+      - app-network
+
+volumes:
+  qb-jumpserver-data:
+
+networks:
+  app-network:
+    name: qb-jumpserver-network

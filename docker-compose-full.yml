@@ -1,0 +1,68 @@
+services:
+  # Jump Server with OIDC enabled
+  jump-server:
+    extends:
+      # Switch between local build and cloud image by changing the file below:
+      # - docker-compose-build.yml: Local build from Dockerfile
+      # - docker-compose-cloud.yml: Pull from Docker Hub
+      file: docker-compose-build.yml
+      service: jump-server
+    depends_on:
+      - keycloak
+    networks:
+      - app-network
+      - keycloak-network
+
+  # Keycloak Identity Provider
+  keycloak:
+    image: keycloak/keycloak:26.4
+    container_name: keycloak
+    command: start-dev
+    env_file:
+      - .env
+    ports:
+      - "${KEYCLOAK_PORT:-8081}:8080"
+    depends_on:
+      keycloak-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "timeout 3 bash -c '</dev/tcp/localhost/8080' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 2
+      start_period: 20s
+    restart: unless-stopped
+    networks:
+      - keycloak-network
+
+  # PostgreSQL for Keycloak
+  keycloak-db:
+    image: postgres:17
+    container_name: keycloak-db
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-keycloak}
+      POSTGRES_USER: ${POSTGRES_USER:-keycloak}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-keycloak}
+    volumes:
+      - keycloak-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-keycloak} -d ${POSTGRES_DB:-keycloak}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    networks:
+      - keycloak-network
+
+volumes:
+  keycloak-db-data:
+  qb-jumpserver-data:
+
+networks:
+  app-network:
+    name: qb-jumpserver-network
+  keycloak-network:
+    name: keycloak-network

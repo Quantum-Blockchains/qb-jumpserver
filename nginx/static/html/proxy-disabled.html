@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Service Proxy Temporarily Disabled</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="stylesheet" href="/static/css/vanilla/layout.css" />
+  <link rel="stylesheet" href="/static/css/vanilla/typography.css" />
+  <style>
+    .panel { max-width: 760px; margin: 12vh auto; background: var(--clr-bg-highlight); border:1px solid var(--clr-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+    .panel .header { padding: 16px 20px; border-bottom:1px solid var(--clr-border); font-weight: 600; }
+    .panel .body { padding: 16px 20px; }
+    .muted { color: #555; }
+    code { background:#111; color:#fafafa; padding:2px 6px; border-radius:4px; }
+  </style>
+  <script>
+    (function(){
+      try {
+        var path = window.location.pathname || '';
+        var m = path.match(/^\/http\/([^/]+)/);
+        var serviceId = m && m[1] ? m[1] : '';
+        var el = document.getElementById('svc');
+        if (el && serviceId) el.textContent = serviceId;
+      } catch(e){}
+    })();
+  </script>
+  
+</head>
+<body>
+  <div class="panel">
+    <div class="header">Service Proxy Temporarily Disabled</div>
+    <div class="body">
+      <p>The HTTP proxy component is currently disabled. Access management and auditing remain active.</p>
+      <p class="muted">Requested service: <code id="svc">unknown</code></p>
+      <p>If you expected this to open the service UI, this environment has proxying turned off. You can still manage services from the dashboard.</p>
+      <p><a href="/dashboard" class="btn">Back to dashboard</a></p>
+    </div>
+  </div>
+</body>
+</html>
+

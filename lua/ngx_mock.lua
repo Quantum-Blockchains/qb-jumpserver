@@ -1,0 +1,3 @@
+-- NGX Mock
+
+ngx = {}

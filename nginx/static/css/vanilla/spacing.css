@@ -1,0 +1,16 @@
+/* ================================== */
+/* SPACING SYSTEM */
+/* ================================== */
+
+:root {
+    /* ================================== */
+    /* Spacing (REM units for consistency and usability/accessibility) */
+    /* ================================== */
+    --spacing-xs: 0.25rem;   /* 4px */
+    --spacing-sm: 0.5rem;    /* 8px */
+    --spacing-md: 1rem;      /* 16px - Base Spacing */
+    --spacing-lg: 1.5rem;    /* 24px */
+    --spacing-xl: 2rem;      /* 32px */
+    --spacing-2xl: 3rem;     /* 48px */
+    --spacing-3xl: 4rem;     /* 64px */
+}

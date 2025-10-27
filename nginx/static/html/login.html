@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Jump Server</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <h2 id="login-title">Jump Server</h2>
+                <p>Sign in with your identity provider</p>
+            </div>
+
+            <div class="login-providers">
+                <button class="provider-button" id="oidc-login-btn">
+                    <span class="provider-icon">🔐</span>
+                    <span class="provider-text">Continue with Single Sign-On</span>
+                </button>
+            </div>
+
+            <div class="login-footer">
+                <p class="help-text">You will be redirected to the provider to authenticate.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+    (function(){
+        var btn = document.getElementById('oidc-login-btn');
+        if (!btn) return;
+        btn.addEventListener('click', function(){
+            window.location.href = '/auth/oidc/login';
+        });
+    })();
+    </script>
+</body>
+ </html>
+
+
+

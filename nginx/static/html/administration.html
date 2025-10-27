@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Jump Server</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            document.body.addEventListener('click', function(e){
+                var t = e.target.closest('[data-tab]');
+                if(!t) return;
+                var tab = t.getAttribute('data-tab');
+                document.querySelectorAll('[data-tab]').forEach(function(el){ el.classList.toggle('active', el.getAttribute('data-tab')===tab); });
+                document.querySelectorAll('.tab-content').forEach(function(el){ el.classList.remove('active'); });
+                var target = document.getElementById(tab+'-tab');
+                if(target) target.classList.add('active');
+            });
+        });
+    </script>
+    </head>
+<body>
+    <app-header active="administration"></app-header>
+
+    <main class="main">
+        <div class="administration-container">
+            <div class="admin-tabs" style="margin-bottom:1rem;display:flex;gap:.5rem;">
+                <button class="tab-button active" data-tab="services">Services</button>
+                <button class="tab-button" data-tab="monitoring">Monitoring</button>
+                <button class="tab-button" data-tab="diagnostics">Server Diagnostics</button>
+            </div>
+
+            <div class="admin-content">
+                <div class="tab-content active" id="services-tab">
+                    <app-admin-services type="http"></app-admin-services>
+                    <app-admin-services type="ssh"></app-admin-services>
+                </div>
+
+                <div class="tab-content" id="monitoring-tab">
+                    <app-admin-monitoring></app-admin-monitoring>
+                </div>
+
+                <div class="tab-content" id="diagnostics-tab">
+                    <app-admin-diagnostics></app-admin-diagnostics>
+                </div>
+            </div>
+        </div>
+        <div id="admin-modals"></div>
+    </main>
+
+    <app-footer></app-footer>
+
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/components/app-components.js"></script>
+    <script src="/static/js/components/admin/app-admin-components.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - Jump Server</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script>
+    // Sync theme with system preference (same logic as app)
+    (function(){
+        try {
+            var root = document.documentElement;
+            var mql = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+            var apply = function(){
+                if (mql && mql.matches) {
+                    root.classList.add('dark-theme');
+                    root.classList.remove('light-theme');
+                } else {
+                    root.classList.remove('dark-theme');
+                    root.classList.add('light-theme');
+                }
+            };
+            apply();
+            if (mql && typeof mql.addEventListener === 'function') {
+                mql.addEventListener('change', apply);
+            } else if (mql && typeof mql.addListener === 'function') {
+                mql.addListener(apply);
+            }
+        } catch(_) {}
+    })();
+    </script>
+</head>
+<body class="error-page">
+    <main class="main">
+        <div class="error-container">
+            <div class="error-box">
+                <div class="error-header">
+                    <div class="error-icon">⚠️</div>
+                    <div class="error-heading">
+                        <div class="error-code" id="error-code">Error</div>
+                        <div class="error-title" id="error-title">An unexpected error occurred</div>
+                    </div>
+                </div>
+                <div class="error-content" id="error-message">
+                    <p>Please go back and try again, or contact your administrator if the problem persists.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+    (function() {
+        try {
+            var path = window.location.pathname || '';
+            var match = path.match(/\/_error\/(\d{3})$/);
+            var code = match ? parseInt(match[1], 10) : null;
+            var titles = {
+                400: 'Bad request',
+                401: 'Authentication required',
+                403: 'Access denied',
+                404: 'Page not found',
+                405: 'Method not allowed',
+                500: 'Internal server error',
+                502: 'Bad gateway',
+                503: 'Service unavailable',
+                504: 'Gateway timeout'
+            };
+            var messages = {
+                400: 'The server could not understand your request.',
+                401: 'Please sign in to continue.',
+                403: 'You do not have permission to access this resource.',
+                404: "We couldn't find the page you're looking for.",
+                405: 'This HTTP method is not allowed here.',
+                500: 'An unexpected error occurred. Please try again.',
+                502: 'The upstream service sent an invalid response.',
+                503: 'The service is temporarily unavailable. Please try again later.',
+                504: 'The upstream service took too long to respond.'
+            };
+            if (code) {
+                var codeEl = document.getElementById('error-code');
+                var titleEl = document.getElementById('error-title');
+                var msgEl = document.getElementById('error-message');
+                if (codeEl) codeEl.textContent = String(code);
+                if (titleEl) titleEl.textContent = titles[code] || 'Something went wrong';
+                if (msgEl) msgEl.innerHTML = '<p>' + (messages[code] || 'An unexpected error occurred. Please try again.') + '</p>';
+            }
+        } catch (e) { /* no-op */ }
+    })();
+    </script>
+</body>
+</html>
+
+
+
